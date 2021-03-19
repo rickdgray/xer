@@ -10,7 +10,6 @@ install:
 
 build:
 	$(TSC)
-	cp ./source/index.html ./build/index.html
 
 clean:
-	rm -rf ./build
+	rm -rf ./*.js
