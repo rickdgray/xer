@@ -1,5 +1,31 @@
 const parseData = (data: string) => {
-    console.log(data);
+    const lines = data.split("\n");
+
+    let currentTable: string = "";
+
+    lines.forEach((line: string) => {
+        const tokens = line.split(" ");
+        
+        switch(tokens[0]) {
+            case "%T":
+                if (tokens[1]) {
+                    currentTable = tokens[1];
+                    console.log(currentTable);
+                } else {
+                    console.error("Invalid File");
+                }
+                break;
+            case "%F":
+                break;
+            case "%R":
+                break;
+            case "%E":
+                console.log("parse complete");
+                break;
+            default:
+                break;
+        }
+    });
 }
 
 const getFile = (): void => {

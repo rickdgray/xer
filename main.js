@@ -1,6 +1,30 @@
 "use strict";
 const parseData = (data) => {
-    console.log(data);
+    const lines = data.split("\n");
+    let currentTable = "";
+    lines.forEach((line) => {
+        const tokens = line.split(" ");
+        switch (tokens[0]) {
+            case "%T":
+                if (tokens[1]) {
+                    currentTable = tokens[1];
+                    console.log(currentTable);
+                }
+                else {
+                    console.error("Invalid File");
+                }
+                break;
+            case "%F":
+                break;
+            case "%R":
+                break;
+            case "%E":
+                console.log("parse complete");
+                break;
+            default:
+                break;
+        }
+    });
 };
 const getFile = () => {
     var _a;
