@@ -24,6 +24,7 @@ const createDownloadLink = (filename, data) => {
     const element = document.createElement('a');
     element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(data)}`);
     element.setAttribute('download', filename);
+    element.innerHTML = filename;
     document.body.appendChild(element);
 };
 const getFile = () => {
