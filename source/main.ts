@@ -1,26 +1,23 @@
 const parseData = (dataString: string) => {
     let data: Record<string, string> = {};
-
+    let currentTable: string = "";
     const lines = dataString.split("\n");
     lines.forEach((line: string) => {
         const tokens = line.split("\t");
         
         switch(tokens[0]) {
             case "%T":
-                if (tokens[1]) {
-                    //data[tokens[1]] = 
-                } else {
-                    console.error("Invalid File");
-                }
+                data[currentTable] = "";
                 break;
             case "%F":
-                break;
             case "%R":
+                data[currentTable] = `${data[currentTable]}${tokens.slice(1).join(",")}\n`;
                 break;
             case "%E":
                 console.log("parse complete");
                 break;
             default:
+                console.log(`>>>MISSED TOKEN ${tokens[0]}`);
                 break;
         }
     });

@@ -1,27 +1,23 @@
 "use strict";
-const parseData = (data) => {
-    const lines = data.split("\n");
+const parseData = (dataString) => {
+    let data = {};
     let currentTable = "";
+    const lines = dataString.split("\n");
     lines.forEach((line) => {
         const tokens = line.split("\t");
         switch (tokens[0]) {
             case "%T":
-                if (tokens[1]) {
-                    currentTable = tokens[1];
-                    console.log(currentTable);
-                }
-                else {
-                    console.error("Invalid File");
-                }
+                data[currentTable] = "";
                 break;
             case "%F":
-                break;
             case "%R":
+                data[currentTable] = `${data[currentTable]}${tokens.slice(1).join(",")}\n`;
                 break;
             case "%E":
                 console.log("parse complete");
                 break;
             default:
+                console.log(`>>>MISSED TOKEN ${tokens[0]}`);
                 break;
         }
     });
