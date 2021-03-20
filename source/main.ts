@@ -24,7 +24,7 @@ const parseData = (dataString: string): Record<string, string> => {
 
 const createDownloadLink = (filename: string, data: string): void => {
     const element = document.createElement('a');
-    element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(data)}`);
+    element.setAttribute('href', `data:text/csv,${encodeURIComponent(data)}`);
     element.setAttribute('download', filename);
     element.innerHTML = filename;
     document.body.appendChild(element);
