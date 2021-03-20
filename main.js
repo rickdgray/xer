@@ -21,9 +21,10 @@ const parseData = (dataString) => {
     return data;
 };
 const createDownloadLink = (filename, data) => {
+    document.body.appendChild(document.createElement('br'));
     const element = document.createElement('a');
     element.setAttribute('href', `data:text/csv,${encodeURIComponent(data)}`);
-    element.setAttribute('download', filename);
+    element.setAttribute('download', `${filename}.csv`);
     element.innerHTML = filename;
     document.body.appendChild(element);
 };
