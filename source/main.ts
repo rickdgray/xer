@@ -1,16 +1,14 @@
-const parseData = (data: string) => {
-    const lines = data.split("\n");
+const parseData = (dataString: string) => {
+    let data: Record<string, string> = {};
 
-    let currentTable: string = "";
-
+    const lines = dataString.split("\n");
     lines.forEach((line: string) => {
         const tokens = line.split("\t");
         
         switch(tokens[0]) {
             case "%T":
                 if (tokens[1]) {
-                    currentTable = tokens[1];
-                    console.log(currentTable);
+                    //data[tokens[1]] = 
                 } else {
                     console.error("Invalid File");
                 }
