@@ -1,44 +1,54 @@
-const parseData = (dataString: string) => {
+const parseData = (dataString: string): Record<string, string> => {
     let data: Record<string, string> = {};
-    let currentTable: string = "";
-    const lines = dataString.split("\n");
+    let currentTable: string = '';
+    const lines = dataString.split('\n');
+    
     lines.forEach((line: string) => {
-        const tokens = line.split("\t");
-        
+        const tokens = line.split('\t');
         switch(tokens[0]) {
-            case "%T":
+            case '%T':
                 currentTable = tokens[1] as string;
-                data[currentTable] = "";
+                data[currentTable] = '';
                 break;
-            case "%F":
-            case "%R":
-                data[currentTable] = `${data[currentTable]}${tokens.slice(1).join(",")}\n`;
-                break;
-            case "%E":
-                console.log("parse complete");
+            case '%F':
+            case '%R':
+                data[currentTable] = `${data[currentTable]}${tokens.slice(1).join(',')}\n`;
                 break;
             default:
-                console.log(`>>>MISSED TOKEN ${tokens[0]}`);
                 break;
         }
     });
+
+    return data;
 }
 
-const getFile = (): void => {
-    const selectedFile = (document.getElementById("fileInput") as HTMLInputElement).files?.[0];
+const createDownloadLink = (filename: string, data: string): void => {
+    const element = document.createElement('a');
+    element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(data)}`);
+    element.setAttribute('download', filename);
+    document.body.appendChild(element);
+};
 
-    if (selectedFile && selectedFile.type === "application/xer") {
+const getFile = (): void => {
+    const selectedFile = (document.getElementById('fileInput') as HTMLInputElement).files?.[0];
+
+    if (selectedFile && selectedFile.type === 'application/xer') {
         const reader = new FileReader();
         reader.onload = (event: ProgressEvent<FileReader>): void => {
             if (event.target) {
-                parseData(event.target.result as string);
+                const data = parseData(event.target.result as string);
+                
+                for (let key in data) {
+                    let table = data[key] as string;
+                    createDownloadLink(key, table);
+                }
             }
         };
         reader.readAsText(selectedFile);
     } else {
-        console.error("Invalid file!");
+        console.error('Invalid file!');
     }
 }
 
-const inputElement = document.getElementById("fileInput") as HTMLInputElement;
-inputElement.addEventListener("change", getFile, false);
+const inputElement = document.getElementById('fileInput') as HTMLInputElement;
+inputElement.addEventListener('change', getFile, false);

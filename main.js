@@ -1,43 +1,50 @@
 "use strict";
 const parseData = (dataString) => {
     let data = {};
-    let currentTable = "";
-    const lines = dataString.split("\n");
+    let currentTable = '';
+    const lines = dataString.split('\n');
     lines.forEach((line) => {
-        const tokens = line.split("\t");
+        const tokens = line.split('\t');
         switch (tokens[0]) {
-            case "%T":
+            case '%T':
                 currentTable = tokens[1];
-                data[currentTable] = "";
+                data[currentTable] = '';
                 break;
-            case "%F":
-            case "%R":
-                data[currentTable] = `${data[currentTable]}${tokens.slice(1).join(",")}\n`;
-                break;
-            case "%E":
-                console.log("parse complete");
+            case '%F':
+            case '%R':
+                data[currentTable] = `${data[currentTable]}${tokens.slice(1).join(',')}\n`;
                 break;
             default:
-                console.log(`>>>MISSED TOKEN ${tokens[0]}`);
                 break;
         }
     });
+    return data;
+};
+const createDownloadLink = (filename, data) => {
+    const element = document.createElement('a');
+    element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(data)}`);
+    element.setAttribute('download', filename);
+    document.body.appendChild(element);
 };
 const getFile = () => {
     var _a;
-    const selectedFile = (_a = document.getElementById("fileInput").files) === null || _a === void 0 ? void 0 : _a[0];
-    if (selectedFile && selectedFile.type === "application/xer") {
+    const selectedFile = (_a = document.getElementById('fileInput').files) === null || _a === void 0 ? void 0 : _a[0];
+    if (selectedFile && selectedFile.type === 'application/xer') {
         const reader = new FileReader();
         reader.onload = (event) => {
             if (event.target) {
-                parseData(event.target.result);
+                const data = parseData(event.target.result);
+                for (let key in data) {
+                    let table = data[key];
+                    createDownloadLink(key, table);
+                }
             }
         };
         reader.readAsText(selectedFile);
     }
     else {
-        console.error("Invalid file!");
+        console.error('Invalid file!');
     }
 };
-const inputElement = document.getElementById("fileInput");
-inputElement.addEventListener("change", getFile, false);
+const inputElement = document.getElementById('fileInput');
+inputElement.addEventListener('change', getFile, false);
