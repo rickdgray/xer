@@ -3,7 +3,7 @@ const parseData = (data) => {
     const lines = data.split("\n");
     let currentTable = "";
     lines.forEach((line) => {
-        const tokens = line.split(" ");
+        const tokens = line.split("\t");
         switch (tokens[0]) {
             case "%T":
                 if (tokens[1]) {

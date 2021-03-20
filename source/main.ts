@@ -4,7 +4,7 @@ const parseData = (data: string) => {
     let currentTable: string = "";
 
     lines.forEach((line: string) => {
-        const tokens = line.split(" ");
+        const tokens = line.split("\t");
         
         switch(tokens[0]) {
             case "%T":
