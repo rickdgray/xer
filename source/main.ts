@@ -7,6 +7,7 @@ const parseData = (dataString: string) => {
         
         switch(tokens[0]) {
             case "%T":
+                currentTable = tokens[1] as string;
                 data[currentTable] = "";
                 break;
             case "%F":
