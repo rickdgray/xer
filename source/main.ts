@@ -56,6 +56,3 @@ const getFile = (): void => {
         console.error('Invalid file!');
     }
 }
-
-const inputElement = document.getElementById('file-input') as HTMLInputElement;
-inputElement.addEventListener('change', getFile, false);
