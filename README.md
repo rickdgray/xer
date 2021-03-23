@@ -4,6 +4,4 @@ https://www.xertocsv.com/
 
 To build:
 
->make install
-
->make
+>ng build
