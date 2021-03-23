@@ -12,8 +12,8 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public getFile(): void {
-    const selectedFile = (document.getElementById('fileInput') as HTMLInputElement).files?.[0];
+  public getFile($event: Event): void {
+    const selectedFile = ($event.target as HTMLInputElement).files?.[0];
 
     if (selectedFile && selectedFile.type === 'application/xer') {
       const reader = new FileReader();
