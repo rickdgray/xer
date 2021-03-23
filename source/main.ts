@@ -31,6 +31,11 @@ const createDownloadLink = (filename: string, data: string): void => {
     document.body.appendChild(element);
 };
 
+const updateTable = (tableData: string): void => {
+    const displayTable = document.getElementById('display-table') as HTMLDivElement;
+    //update
+};
+
 const getFile = (): void => {
     const selectedFile = (document.getElementById('fileInput') as HTMLInputElement).files?.[0];
 
@@ -52,5 +57,5 @@ const getFile = (): void => {
     }
 }
 
-const inputElement = document.getElementById('fileInput') as HTMLInputElement;
+const inputElement = document.getElementById('file-input') as HTMLInputElement;
 inputElement.addEventListener('change', getFile, false);

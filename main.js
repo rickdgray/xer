@@ -28,6 +28,10 @@ const createDownloadLink = (filename, data) => {
     element.innerHTML = filename;
     document.body.appendChild(element);
 };
+const updateTable = (tableData) => {
+    const displayTable = document.getElementById('display-table');
+    //update
+};
 const getFile = () => {
     var _a;
     const selectedFile = (_a = document.getElementById('fileInput').files) === null || _a === void 0 ? void 0 : _a[0];
@@ -48,5 +52,5 @@ const getFile = () => {
         console.error('Invalid file!');
     }
 };
-const inputElement = document.getElementById('fileInput');
+const inputElement = document.getElementById('file-input');
 inputElement.addEventListener('change', getFile, false);
