@@ -1,11 +1,11 @@
 export class XerTable {
-    public name: string;
-    public fields: string[];
-    public rows: string[][];
+    public readonly name: string;
+    public readonly fields: string[];
+    public readonly rows: string[][];
 
-    constructor() {
-        this.name = '';
-        this.fields = [];
-        this.rows = [[]];
+    constructor(name: string, fields: string[], rows: string[][]) {
+        this.name = name;
+        this.fields = fields;
+        this.rows = rows;
     }
 }

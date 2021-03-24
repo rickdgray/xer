@@ -7,22 +7,15 @@ import { XerTable } from '../models/XerTable';
   styleUrls: ['./main-table.component.scss']
 })
 export class MainTableComponent implements OnInit {
-  public xerTable: XerTable | null;
+  xerTable?: XerTable;
 
   constructor() {
-    this.xerTable = {
-      name: 'CURRTYPE',
-      fields: ['curr_id', 'decimal_digit_cnt', 'curr_symbol', 'decimal_symbol', 'digit_group_symbol', 'pos_curr_fmt_type', 'neg_curr_fmt_type', 'curr_type', 'curr_short_name', 'group_digit_cnt', 'base_exch_rate'],
-      rows: [['1', '2', '$', '.', ',', '#1.1', '(#1.1)', 'USD', 'USD', '3', '1']]
-    };
-
-    //this.xerTable = null;
   }
 
   ngOnInit(): void {
   }
 
-  public createDownloadLink(filename: string, data: string): void {
+  createDownloadLink(filename: string, data: string): void {
     document.body.appendChild(document.createElement('br'));
     const element = document.createElement('a');
     element.setAttribute('href', `data:text/csv,${encodeURIComponent(data)}`);

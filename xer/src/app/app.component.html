@@ -10,5 +10,5 @@
 <input hidden type="file" #uploader (change)="getFile($event)" />
 
 <div class="content" role="main">
-  <app-sidebar></app-sidebar>
+  <app-sidebar [tables]="tables"></app-sidebar>
 </div>
