@@ -6,6 +6,7 @@ import { XerTable } from '../models/XerTable';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
+
 export class SidebarComponent implements OnInit {
   @Input() tables?: XerTable[];
 
@@ -18,7 +19,9 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.selectedTable = changes.tables.currentValue[0];
+    if (changes.tables && changes.tables.currentValue && changes.tables.currentValue.length > 0) {
+      this.selectedTable = changes.tables.currentValue[0];
+    }
   }
 
   onSelect(table: XerTable): void {
