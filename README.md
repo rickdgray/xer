@@ -1,7 +1,7 @@
-# Xer Parser
+# XER to CSV
 
 https://www.xertocsv.com/
 
 To build:
 
->ng build
+>make

@@ -19,7 +19,7 @@ export class AppComponent {
   getFile($event: Event): void {
     const selectedFile = ($event.target as HTMLInputElement).files?.[0];
 
-    if (selectedFile && selectedFile.type === 'application/xer') {
+    if (selectedFile && selectedFile.name.substring(selectedFile.name.length - 4) === '.xer') {
       const reader = new FileReader();
       reader.onload = (event: ProgressEvent<FileReader>): void => {
         if (event.target) {
@@ -27,8 +27,6 @@ export class AppComponent {
         }
       };
       reader.readAsText(selectedFile);
-    } else {
-      console.error('Invalid file!');
     }
   }
 
