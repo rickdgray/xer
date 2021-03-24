@@ -1,18 +1,13 @@
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="position-sticky pt-3">
-                <ul class="nav flex-column">
-                    <li *ngFor="let table of tables" class="nav-item"
-                        (click)="onSelect(table)">
-                        <a class="nav-link" [class.active]="table === selectedTable">
-                            {{table.name}}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <app-main-table [table]="selectedTable"></app-main-table>
+<nav class="col-md-2 col-lg-1 d-md-block bg-light sidebar">
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li *ngFor="let table of tables" class="nav-item" (click)="onSelect(table)">
+                <a class="nav-link" [class.active]="table === selectedTable">
+                    {{table.name}}
+                </a>
+            </li>
+        </ul>
     </div>
-</div>
+</nav>
+
+<app-main-table [table]="selectedTable"></app-main-table>

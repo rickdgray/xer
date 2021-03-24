@@ -37,7 +37,7 @@ export class MainTableComponent implements OnInit {
       const blob = new Blob([`${this.table.fields.join(',')}\n${rowsAsString.join('\n')}`], {
         type: 'text/csv;charset=utf-8'
       });
-      FileSaver.saveAs(blob, `${this.table.name}.csv`);
+      FileSaver.saveAs(blob, `${this.table.name.substring(0, this.table.name.length - 1)}.csv`);
     }
   }
 }
