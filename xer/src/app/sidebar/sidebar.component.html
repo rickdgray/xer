@@ -1,13 +1,8 @@
-<nav class="col-md-2 col-lg-1 d-md-block bg-light sidebar">
-    <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-            <li *ngFor="let table of tables" class="nav-item" (click)="onSelect(table)">
-                <a class="nav-link" [class.active]="table === selectedTable">
-                    {{table.name}}
-                </a>
-            </li>
-        </ul>
+<div class="col-md-2 col-lg-1 d-md-block bg-light sidebar collapse">
+    <div *ngFor="let table of tables" (click)="onSelect(table)" class="list-group list-group-flush">
+        <button class="list-group-item list-group-item-action"
+            [class.active]="table === selectedTable">{{table.name}}</button>
     </div>
-</nav>
+</div>
 
 <app-main-table [table]="selectedTable"></app-main-table>
