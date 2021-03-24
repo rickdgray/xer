@@ -1,0 +1,1 @@
+{"version":3,"sources":["./styles.scss"],"names":[],"mappings":"AAAA;EACI;AACJ,C","file":"styles.css","sourcesContent":["body {\n    font-size: .875rem;\n}"],"sourceRoot":"webpack:///"}
