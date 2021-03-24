@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { XerTable } from '../models/XerTable';
 
 @Component({
@@ -7,7 +7,7 @@ import { XerTable } from '../models/XerTable';
   styleUrls: ['./main-table.component.scss']
 })
 export class MainTableComponent implements OnInit {
-  xerTable?: XerTable;
+  @Input() table?: XerTable;
 
   constructor() {
   }

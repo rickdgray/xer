@@ -4,9 +4,8 @@
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li *ngFor="let table of tables" class="nav-item"
-                        [class.active]="table === selectedTable"
                         (click)="onSelect(table)">
-                        <a class="nav-link">
+                        <a class="nav-link" [class.active]="table === selectedTable">
                             {{table.name}}
                         </a>
                     </li>
@@ -14,6 +13,6 @@
             </div>
         </nav>
 
-        <app-main-table></app-main-table>
+        <app-main-table [table]="selectedTable"></app-main-table>
     </div>
 </div>

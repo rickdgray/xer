@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { XerTable } from '../models/XerTable';
 
 @Component({
@@ -11,9 +11,14 @@ export class SidebarComponent implements OnInit {
 
   selectedTable?: XerTable;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.selectedTable = changes.tables.currentValue[0];
   }
 
   onSelect(table: XerTable): void {
