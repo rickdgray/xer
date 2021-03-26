@@ -24,6 +24,8 @@ export class AppComponent {
   }
 
   exportXer(): void {
-    
+    if (this.tables) {
+      this.importExportService.exportXer(this.tables);
+    }
   }
 }

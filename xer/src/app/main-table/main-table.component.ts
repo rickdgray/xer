@@ -16,7 +16,11 @@ export class MainTableComponent implements OnInit {
   ngOnInit(): void { }
 
   importCsv($event: Event): void {
-    
+    const selectedFile = ($event.target as HTMLInputElement).files?.[0];
+
+    if (selectedFile) {
+      this.table = this.importExportService.importCsv(selectedFile);
+    }
   }
 
   exportCsv() {

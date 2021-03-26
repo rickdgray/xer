@@ -55,6 +55,14 @@ export class ImportExportService {
     return tables;
   }
 
+  exportXer(tables: XerTable[]): void {
+
+  }
+
+  importCsv(file: File): XerTable {
+    return new XerTable('', [], []);
+  }
+
   exportCsv(table: XerTable): void {
     let fieldsAsString: string[] = [];
     table.fields.forEach((field: string) => {
