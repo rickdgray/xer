@@ -12,11 +12,9 @@ export class SidebarComponent implements OnInit {
 
   selectedTable?: XerTable;
 
-  constructor() {
-  }
+  constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.tables && changes.tables.currentValue && changes.tables.currentValue.length > 0) {
