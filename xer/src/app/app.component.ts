@@ -22,4 +22,8 @@ export class AppComponent {
       this.tables = this.importExportService.importXer(selectedFile);
     }
   }
+
+  exportXer(): void {
+    
+  }
 }

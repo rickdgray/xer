@@ -1,13 +1,13 @@
-<main *ngIf="table" class="col-md-10 ms-sm-auto col-lg-11 px-md-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-        <h3 class="h3">{{table.name}}</h3>
-        <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group">
-                <!-- <button (click)="importCsv()" class="btn btn-sm btn-light btn-outline-dark">Import CSV</button> -->
-                <button (click)="exportCsv()" class="btn btn-sm btn-light btn-outline-dark">Export CSV</button>
-            </div>
+<main *ngIf="table" class="ms-auto col-11 px-4">
+    <div class="d-flex justify-content-between align-items-center pt-2">
+        <h5 class="h5">{{table.name}}</h5>
+        <div class="col-2 btn-group mb-2">
+            <button (click)="uploader.click()" class="btn btn-sm btn-light btn-outline-dark">Import CSV</button>
+            <button (click)="exportCsv()" class="btn btn-sm btn-light btn-outline-dark">Export CSV</button>
         </div>
     </div>
+
+    <input hidden type="file" #uploader (change)="importCsv($event)" />
     
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-sm">

@@ -15,6 +15,10 @@ export class MainTableComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  importCsv($event: Event): void {
+    
+  }
+
   exportCsv() {
     if (this.table) {
       this.importExportService.exportCsv(this.table);

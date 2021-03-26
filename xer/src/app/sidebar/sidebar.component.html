@@ -1,4 +1,4 @@
-<div class="col-md-2 col-lg-1 d-md-block bg-light sidebar collapse">
+<div class="col-1 d-md-block bg-light sidebar collapse">
     <div *ngFor="let table of tables" (click)="onSelect(table)" class="list-group list-group-flush">
         <button class="list-group-item list-group-item-action"
             [class.active]="table === selectedTable">{{table.name}}</button>
