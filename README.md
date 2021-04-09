@@ -17,3 +17,5 @@ import csv
 export xer
 
 dictionary of table names?
+
+reload table on second import
