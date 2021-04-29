@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ImportExportService } from '../import-export.service';
 import { XerTable } from '../models/XerTable';
 
@@ -11,9 +12,15 @@ import { XerTable } from '../models/XerTable';
 export class MainTableComponent implements OnInit {
   @Input() table?: XerTable;
 
+  dataSource = new MatTableDataSource<string[]>();
+
   constructor(private importExportService: ImportExportService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (this.table) {
+      this.dataSource.data = this.table.rows;
+    }
+  }
 
   importCsv($event: Event): void {
     const selectedFile = ($event.target as HTMLInputElement).files?.[0];

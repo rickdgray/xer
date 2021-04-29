@@ -8,8 +8,18 @@
     </div>
 
     <input hidden type="file" #uploader (change)="importCsv($event)" />
+
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let item"> {{item.name}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
     
-    <div class="table-responsive">
+    <!-- <div class="table-responsive">
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr>
@@ -22,5 +32,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+    </div> -->
 </main>
