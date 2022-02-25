@@ -1,4 +1,6 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ImportExportService } from '../import-export.service';
 import { XerTable } from '../models/XerTable';
@@ -9,26 +11,29 @@ import { XerTable } from '../models/XerTable';
   styleUrls: ['./main-table.component.scss']
 })
 
-export class MainTableComponent implements OnInit, OnChanges {
+export class MainTableComponent implements OnChanges, AfterViewInit {
   @Input() table?: XerTable;
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  columns: any[] = [];
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<any>([]);
 
   constructor(private importExportService: ImportExportService) { }
 
-  ngOnInit(): void {
-    if (this.table) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.table && changes.table.currentValue) {
+      this.columns = this.getColumnDefs(this.table?.fields ?? []);
+      this.dataSource.data = this.transformData(this.table ?? { name: '', fields: [], rows: [] });;
+      this.displayedColumns = this.columns.map(c => c.columnDef);
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.table && changes.table.currentValue) {
-      // this.displayedColumns = changes.table.currentValue.fields;
-      // this.dataSource.data = changes.table.currentValue.rows;
-      this.displayedColumns = this.table?.fields ?? [];
-      this.dataSource.data = this.transformData(this.table ?? { name: '', fields: [], rows: [] });
-    }
+  ngAfterViewInit(): void {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
   }
 
   importCsv($event: Event): void {
@@ -45,13 +50,13 @@ export class MainTableComponent implements OnInit, OnChanges {
     }
   }
 
-  private transformData(table: XerTable): any {
+  private transformData(table: XerTable): Record<string, string>[] {
     const fieldIndexLookup: Record<number, string> = {};
     table.fields.forEach((field, index) => {
       fieldIndexLookup[index] = field;
     });
 
-    const data = [];
+    const data: Record<string, string>[] = [];
     for (let i = 0; i < table.rows.length; i++) {
       const rowData: Record<string, string> = {};
       for (let j = 0; j < table.rows[i].length; j++) {
@@ -61,5 +66,19 @@ export class MainTableComponent implements OnInit, OnChanges {
     }
 
     return data;
+  }
+
+  private getColumnDefs(fields: string[]): any[] {
+    const columns: any[] = [];
+
+    fields.forEach((field) => {
+      columns.push({
+        columnDef: field,
+        header: field,
+        cell: (element: any) => element[field]
+      });
+    });
+
+    return columns;
   }
 }
