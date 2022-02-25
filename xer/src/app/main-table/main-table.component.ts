@@ -12,22 +12,22 @@ import { XerTable } from '../models/XerTable';
 export class MainTableComponent implements OnInit, OnChanges {
   @Input() table?: XerTable;
 
-  dataSource = new MatTableDataSource<string[]>([]);
   displayedColumns: string[] = [];
+  dataSource = new MatTableDataSource<any>([]);
 
   constructor(private importExportService: ImportExportService) { }
 
   ngOnInit(): void {
     if (this.table) {
-      this.displayedColumns = ['test', 'test2', 'test3'];
-      this.dataSource.data = [['test', 'test2', 'test3'], ['test', 'test2', 'test3'], ['test', 'test2', 'test3'], ['test', 'test2', 'test3']];
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.table && changes.table.currentValue) {
-      this.displayedColumns = changes.table.currentValue.fields;
-      this.dataSource.data = changes.table.currentValue.rows;
+      // this.displayedColumns = changes.table.currentValue.fields;
+      // this.dataSource.data = changes.table.currentValue.rows;
+      this.displayedColumns = this.table?.fields ?? [];
+      this.dataSource.data = this.transformData(this.table ?? { name: '', fields: [], rows: [] });
     }
   }
 
@@ -43,5 +43,23 @@ export class MainTableComponent implements OnInit, OnChanges {
     if (this.table) {
       this.importExportService.exportCsv(this.table);
     }
+  }
+
+  private transformData(table: XerTable): any {
+    const fieldIndexLookup: Record<number, string> = {};
+    table.fields.forEach((field, index) => {
+      fieldIndexLookup[index] = field;
+    });
+
+    const data = [];
+    for (let i = 0; i < table.rows.length; i++) {
+      const rowData: Record<string, string> = {};
+      for (let j = 0; j < table.rows[i].length; j++) {
+        rowData[fieldIndexLookup[j]] = table.rows[i][j];
+      }
+      data.push(rowData);
+    }
+
+    return data;
   }
 }
