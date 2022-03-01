@@ -1,6 +1,6 @@
-<main class="ms-auto col-11 px-4">
-    <div *ngIf="table" class="d-flex justify-content-between align-items-center pt-2">
-        <h5 class="h5">{{table.name}}</h5>
+<main class="ms-auto col-11">
+    <div class="d-flex justify-content-between align-items-center pt-2 px-4">
+        <h5 class="h5">{{table?.name ?? ""}}</h5>
         <div class="col-2 btn-group mb-2">
             <button (click)="uploader.click()" class="btn btn-sm btn-light btn-outline-dark shadow-none">Import CSV</button>
             <button (click)="exportCsv()" class="btn btn-sm btn-light btn-outline-dark shadow-none">Export CSV</button>
@@ -9,25 +9,22 @@
 
     <input hidden type="file" #uploader (change)="importCsv($event)" />
 
-    <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" matSort class="data-table">
-            <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    {{column.header}}
-                </th>
-                <td mat-cell *matCellDef="let row">
-                    {{column.cell(row)}}
-                </td>
-            </ng-container>
-    
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-            <!-- Row shown when there is no matching data. -->
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">This table is empty.</td>
-            </tr>
-        </table>
-        <mat-paginator [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons></mat-paginator>
+    <div [ngClass]="{'mat-elevation-z8': table}">
+        <div class="data-table">
+            <table mat-table recycleRows [dataSource]="dataSource" matSort>
+                <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{column.header}}
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        {{column.cell(row)}}
+                    </td>
+                </ng-container>
+        
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <mat-paginator [ngStyle]="{'display': table ? 'block' : 'none'}" [pageSizeOptions]="[15, 50, 100]" showFirstLastButtons></mat-paginator>
     </div>
 </main>
