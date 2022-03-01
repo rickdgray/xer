@@ -10,7 +10,7 @@
     <input hidden type="file" #uploader (change)="importCsv($event)" />
 
     <div [ngClass]="{'mat-elevation-z8': table}">
-        <div class="data-table">
+        <div class="table-responsive data-table">
             <table mat-table recycleRows [dataSource]="dataSource" matSort>
                 <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
