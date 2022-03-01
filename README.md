@@ -2,13 +2,11 @@
 
 https://www.xertocsv.com/
 
-!!!This make is broken and will clear the repo folder; need to fix!!!
 To build:
 
->make
+run .\build.ps1 from powershell
 
 To do:
-* FIX BUILD
 * import csv
 * export xer
 * dictionary of table names?
